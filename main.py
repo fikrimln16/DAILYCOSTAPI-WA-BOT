@@ -3,7 +3,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from database import SessionLocal
 import datetime
 
-
+import os
 
 app = Flask(__name__)
 
@@ -219,4 +219,4 @@ def printout(msg):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
