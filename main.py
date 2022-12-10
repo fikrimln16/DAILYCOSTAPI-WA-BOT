@@ -262,6 +262,62 @@ def sms_reply():
             message.body(dayspent)
             responded = True
 
+        if input_type == "TARIK":
+            input_tarik = words[2].strip()
+            if input_string == "GOPAY":
+
+                db = get_db()
+                saldoawalgopay = db.execute("SELECT uang_gopay FROM tabungan").fetchone()
+                for i in saldoawalgopay:
+                    saldogopay = i
+                db.close()
+
+                tambahuanggopay = int(input_tarik)
+                saldoakhirgopay = saldogopay - tambahuanggopay
+                db.execute("UPDATE tabungan SET uang_gopay = {} WHERE user_id = 1".format(saldoakhirgopay))
+                db.commit()
+
+                reply="Berhasil menarik GOPAY"
+                printout(input_string)
+                message.body(reply)
+                responded = True
+
+            if input_string == "CASH":
+
+                db = get_db()
+                saldoawalcash = db.execute("SELECT uang_cash FROM tabungan").fetchone()
+                for i in saldoawalcash:
+                    saldocash = i
+                db.close()
+
+                tambahuangcash = int(input_tarik)
+                saldoakhircash = saldocash - tambahuangcash
+                db.execute("UPDATE tabungan SET uang_cash = {} WHERE user_id = 1".format(saldoakhircash))
+                db.commit()
+                
+                printout(input_string)
+                reply="Berhasil menarik CASH"
+                message.body(reply)
+                responded = True
+
+            if input_string == "REKENING":
+
+                db = get_db()
+                saldoawalrekening = db.execute("SELECT uang_rekening FROM tabungan").fetchone()
+                for i in saldoawalrekening:
+                    saldorekening = i
+                db.close()
+
+                tambahuangrekening = int(input_tarik)
+                saldoakhirrekening = saldorekening - tambahuangrekening
+                db.execute("UPDATE tabungan SET uang_rekening = {} WHERE user_id = 1".format(saldoakhirrekening))
+                db.commit()
+                
+                reply="Berhasil menarik REKENING"
+                message.body(reply)
+                printout(input_string)
+                responded = True
+
 
         if not responded:
             message.body("Incorect reequst format")
