@@ -206,14 +206,17 @@ def sms_reply():
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string)).fetchall()
             for i in row():
+                namabarang = i[0]
+                hargabarang = i[1]
+                tanggalbeli = i[2]
+                pembayaranbeli = i[3]
                 reply = "Barang yang dibeli pada tanggal {} : \n\n"\
                     "nama barang : {} \n"\
                         "harga barang : {} \n"\
                             "tanggal : {} \n"\
-                                "pembayaran : {}".format(input_string, i[0], i[1], i[2], i[3])
+                                "pembayaran : {}".format(input_string, namabarang, hargabarang, tanggalbeli, pembayaranbeli)
                 message.body(reply)
                 responded = True
-            db.close()
 
         if not responded:
             message.body("Incorect reequst format")
