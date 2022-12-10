@@ -1,8 +1,8 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from database import SessionLocal
-import datetime
-
+from datetime import datetime 
+from pytz import timezone
 import os
 
 app = Flask(__name__)
@@ -197,7 +197,7 @@ def sms_reply():
             reply="Berhasil memasukkan inputan"
             message.body(reply)
             responded = True
-            x = datetime.datetime.now()
+            x = datetime.now(timezone('Asia/Jakarta'))
             db.execute("INSERT INTO pengeluaran VALUES(null, '{}', '{}', {}, '{}', 1 )".format(input_barang, x, int(input_harga), input_string))
             db.commit()
 
