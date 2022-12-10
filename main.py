@@ -52,40 +52,33 @@ def sms_reply():
             responded = True
             db.close()
 
-    if "list pengeluaran hari ini" in incoming_msg:
-            datenow = datetime.now(timezone('Asia/Jakarta'))
-            tanggal = datenow.strftime('%Y-%m-%d')
-            db = get_db()
-            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
-            total = 1
-            harga = 0
-            for i in row:
-                space = "\n"
-                reply = "\n\n--------------------\n"\
+
+    if "pengeluaran hari ini" in incoming_msg:
+        datenow = datetime.now(timezone('Asia/Jakarta'))
+        tanggal = datenow.strftime('%Y-%m-%d')
+        db = get_db()
+        row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
+        total = 1
+        harga = 0
+        for i in row:
+            space = "\n"
+            reply = "\n\n--------------------\n"\
                         "nama barang : {} \n"\
                         "harga barang : {} \n"\
                         "tanggal beli : {} \n"\
                         "pembayaran : {}\n"\
                             "-------------------\n\n".format(i[0], i[1], i[2], i[3])
-                message.body(reply)
-                message.body(space)
-                harga = harga + int(i[1])
-                total = total + 1
-                responded = True
+            message.body(reply)
+            message.body(space)
+            harga = harga + int(i[1])
+            total = total + 1
+            responded = True
             db.close()
 
-    if "total pengeluaran hari ini" in incoming_msg:
-        datenow = datetime.now(timezone('Asia/Jakarta'))
-        tanggal = datenow.strftime('%Y-%m-%d')
-        db = get_db()
-        row = db.execute("SELECT COUNT(nama) as 'nama', SUM(jumlah) as 'jumlah' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
-        for i in row:
-            dayspent = "\n\nAnda hari ini sudah membeli sebanyak {}\n"\
-                        "Anda hari ini sudah menghabiskan uang sejumlah {}\n\n"\
-                            "ketik 'list pengeluaran hari ini' untuk melihat list2 hari ini".format(i[0], i[1])
+            dayspent = ".\n\n pada tanggal {} sudah membeli sebanyak {}\n"\
+                        "pada tanggal {} sudah menghabiskan uang sejumlah {}\n\n".format(tanggal, total, tanggal,harga)
             message.body(dayspent)
             responded = True
-        db.close()
 
     if "deposit uang" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk deposito uang.\n\n"\
