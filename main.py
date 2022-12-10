@@ -75,10 +75,10 @@ def sms_reply():
             responded = True
             db.close()
 
-            dayspent = ".\n\n pada tanggal {} sudah membeli sebanyak {}\n"\
+        dayspent = ".\n\n pada tanggal {} sudah membeli sebanyak {}\n"\
                         "pada tanggal {} sudah menghabiskan uang sejumlah {}\n\n".format(tanggal, total, tanggal,harga)
-            message.body(dayspent)
-            responded = True
+        message.body(dayspent)
+        responded = True
 
     if "deposit uang" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk deposito uang.\n\n"\
