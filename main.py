@@ -75,7 +75,7 @@ def sms_reply():
             responded = True
             db.close()
 
-        dayspent = ".\n\n pada tanggal {} sudah membeli sebanyak {}\n"\
+        dayspent = ".\n\npada tanggal {} sudah membeli sebanyak {}\n"\
                         "pada tanggal {} sudah menghabiskan uang sejumlah {}\n\n".format(tanggal, total, tanggal,harga)
         message.body(dayspent)
         responded = True
@@ -107,6 +107,13 @@ def sms_reply():
         message.body(reminder_string)
         responded = True
 
+    if "pengeluaran" in incoming_msg:
+        reminder_string = "Berikut adalah tata cara untuk melihat pengeluaran.\n\n"\
+            "1. Ketik 'hari ini' untuk melihat pengeluaran hari ini'.\n"\
+                "2. Ketik dengan format PENGELUARAN@[tanggal (tahun-bulan-hari)]\n"\
+                "3. Ketik 'bulan' untuk melihat pengeluaran bulan ini lalu enter."
+        message.body(reminder_string)
+        responded = True
 
     if "help" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk membeli barang.\n\n"\
