@@ -132,7 +132,7 @@ def sms_reply():
         responded = True
 
     if "makasih" in incoming_msg:
-        reminder_string = "Sama-sama bang Fikri, semoga bot ini sangat berguna untuk kehidupan mas Fikri :))"
+        reminder_string = "Sama-sama mas pikri, semoga bot ini sangat berguna untuk kehidupan mas pikri :)) Love You"
         message.body(reminder_string)
         responded = True
     
