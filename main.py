@@ -53,7 +53,7 @@ def sms_reply():
             db.close()
 
 
-    if "pengeluaran hari ini" in incoming_msg:
+    if "hari ini" in incoming_msg:
         datenow = datetime.now(timezone('Asia/Jakarta'))
         tanggal = datenow.strftime('%Y-%m-%d')
         db = get_db()
