@@ -79,15 +79,17 @@ def sms_reply():
         message.body(reminder_string)
         responded = True
 
-    if input_type == "pengeluaran hari ini":
+    if "pengeluaran hari ini" in incoming_msg:
+            datenow = datetime.now(timezone('Asia/Jakarta'))
+            tanggal = datenow.strftime('%Y-%m-%d')
             db = get_db()
-            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
+            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
             for i in row():
                 totalbarang = i[0]
                 hargabarang = i[1]
                 reply = "Barang yang dibeli pada tanggal {} : \n\n"\
                     "totalbarang : {} \n"\
-                        "harga barang : {} \n".format(str(input_string), totalbarang, hargabarang)
+                        "harga barang : {} \n".format(tanggal, totalbarang, hargabarang)
                 message.body(reply)
                 responded = True
 
