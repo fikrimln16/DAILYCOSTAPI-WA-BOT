@@ -257,9 +257,8 @@ def sms_reply():
                 responded = True
             db.close()
 
-            dayspent = "\n\nAnda sudah membeli sebanyak {}\n"\
-                        "Anda sudah menghabiskan uang sejumlah {}\n\n"\
-                            "ketik 'list pengeluaran hari ini' untuk melihat list2 hari ini".format(total, harga)
+            dayspent = ".\n\n pada tanggal {} sudah membeli sebanyak {}\n"\
+                        "pada tanggal {} sudah menghabiskan uang sejumlah {}\n\n".format(input_string, total, input_string,harga)
             message.body(dayspent)
             responded = True
 
