@@ -59,12 +59,14 @@ def sms_reply():
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
             total = 1
             for i in row:
-                reply = "barang ke-{}"\
+                space = "\n\n"
+                reply = "barang ke-{}\n"\
                             " nama barang : {} \n"\
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
                                         "pembayaran : {}\n\n".format(total, i[0], i[1], i[2], i[3])
                 message.body(reply)
+                message.body(space)
                 responded = True
                 total = total + 1
 
