@@ -58,11 +58,10 @@ def sms_reply():
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
             for i in row:
-                reply = "nama barang : {} \n"\
+                reply = "\n nama barang : {} \n"\
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
-                                        "pembayaran : {}\n"\
-                                            "                        ".format(i[0], i[1], i[2], i[3])
+                                        "pembayaran : {}\n\n".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
@@ -220,11 +219,10 @@ def sms_reply():
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
             for i in row:
-                reply = "nama barang : {} \n"\
+                reply = "\n nama barang : {} \n"\
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
-                                        "pembayaran : {}\n"\
-                                            "                ".format(i[0], i[1], i[2], i[3])
+                                        "pembayaran : {}\n\n".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
