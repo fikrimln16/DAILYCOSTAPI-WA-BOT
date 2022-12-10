@@ -62,7 +62,7 @@ def sms_reply():
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
                                         "pembayaran : {}\n"\
-                                            "\n\n".format(i[0], i[1], i[2], i[3])
+                                            "                        ".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
@@ -224,7 +224,7 @@ def sms_reply():
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
                                         "pembayaran : {}\n"\
-                                            "\n\n".format(i[0], i[1], i[2], i[3])
+                                            "                ".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
