@@ -202,7 +202,7 @@ def sms_reply():
             db.commit()
 
 
-        if input_type == "CEK":
+        if input_type == "PENGELUARAN":
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string)).fetchall()
             for i in row():
