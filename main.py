@@ -60,7 +60,7 @@ def sms_reply():
             total = 1
             for i in row:
                 space = "\n"
-                reply = "\n\n-----barang ke-{}-----\n"\
+                reply = "\n\n--------------------\n"\
                         "nama barang : {} \n"\
                         "harga barang : {} \n"\
                         "tanggal beli : {} \n"\
