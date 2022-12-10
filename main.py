@@ -60,12 +60,12 @@ def sms_reply():
             total = 1
             for i in row:
                 space = "\n"
-                reply = "-----barang ke-{}-----\n"\
+                reply = "\n\n-----barang ke-{}-----\n"\
                         "nama barang : {} \n"\
                         "harga barang : {} \n"\
                         "tanggal beli : {} \n"\
                         "pembayaran : {}\n"\
-                            "-------------------".format(total, i[0], i[1], i[2], i[3])
+                            "-------------------\n\n".format(total, i[0], i[1], i[2], i[3])
                 message.body(reply)
                 message.body(space)
                 responded = True
