@@ -100,10 +100,15 @@ def sms_reply():
         responded = True
         db.close()
 
-    if "beli barang" in incoming_msg:
-        reminder_string = "Berikut adalah tata cara untuk membeli barang.\n\n"\
+    if "cara beli barang" in incoming_msg:
+        reminder_string = "Nih sayang, tata cara untuk membeli barang.\n\n"\
             "1. Format BELI@[PEMBAYARAN]@[HARGA]@[NAMA_BARANG].\n"\
                 "2. Ketik di chat lalu enter."
+        message.body(reminder_string)
+        responded = True
+
+    if "beli" in incoming_msg:
+        reminder_string = "Mau beli apa lagi sih sayang, jangan sering2 beli barang yaa sayang, takutnya boros! :D\n"
         message.body(reminder_string)
         responded = True
 
@@ -133,6 +138,11 @@ def sms_reply():
 
     if "makasih" in incoming_msg:
         reminder_string = "Sama-sama mas pikri, semoga bot ini sangat berguna untuk kehidupan mas pikri :)) Love You"
+        message.body(reminder_string)
+        responded = True
+
+    if "dikit" in incoming_msg:
+        reminder_string = "Yah kasiann, makanya sering-sering nabung mas pikri, makanya pake bot ini ya sayang biar irit :D"
         message.body(reminder_string)
         responded = True
     
