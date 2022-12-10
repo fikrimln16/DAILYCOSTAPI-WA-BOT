@@ -115,12 +115,24 @@ def sms_reply():
         message.body(reminder_string)
         responded = True
 
+    if "narik uang" in incoming_msg:
+        reminder_string = "Berikut adalah tata cara untuk menarik uang.\n\n"\
+            "1. Ketik dengan format TARIK@[TABUNGAN]@[jumlah_uang] untuk menarik uang'.\n"\
+                "2. untuk menarik ini, tidak akan masuk sebagai pengeluaran harian\n"
+        message.body(reminder_string)
+        responded = True
+
     if "help" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk membeli barang.\n\n"\
             "1. cek uang : tinggal ketik 'cek uang'.\n"\
                 "2. deposito uang : tinggal ketik 'deposit uang'.\n"\
                     "3. pengeluaran bulanan : tinggal ketik 'bulan'.\n"\
                         "4. beli barang : tinggal ketik 'beli barang'"
+        message.body(reminder_string)
+        responded = True
+
+    if "makasih" in incoming_msg:
+        reminder_string = "Sama-sama bang Fikri, semoga bot ini sangat berguna untuk kehidupan mas Fikri :))"
         message.body(reminder_string)
         responded = True
     
