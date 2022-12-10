@@ -73,7 +73,7 @@ def sms_reply():
                 total = total + 1
                 responded = True
 
-            dayspent = "Anda hari ini sudah membeli sebanyak {}\n"\
+            dayspent = "\n\nAnda hari ini sudah membeli sebanyak {}\n"\
                     "Anda hari ini sudah menghabiskan uang sejumlah {}".format(total, harga)
             message.body(dayspent)
             responded = True
