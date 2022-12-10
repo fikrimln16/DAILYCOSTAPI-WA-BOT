@@ -52,7 +52,7 @@ def sms_reply():
             responded = True
             db.close()
 
-    if "pengeluaran hari ini" in incoming_msg:
+    if "list pengeluaran hari ini" in incoming_msg:
             datenow = datetime.now(timezone('Asia/Jakarta'))
             tanggal = datenow.strftime('%Y-%m-%d')
             db = get_db()
@@ -72,11 +72,19 @@ def sms_reply():
                 harga = harga + int(i[1])
                 total = total + 1
                 responded = True
+            db.close()
 
+    if "total pengeluaran hari ini" in incoming_msg:
+        datenow = datetime.now(timezone('Asia/Jakarta'))
+        tanggal = datenow.strftime('%Y-%m-%d')
+        db = get_db()
+        row = db.execute("SELECT COUNT(nama) as 'nama', SUM(jumlah) as 'jumlah' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
+        for i in row:
             dayspent = "\n\nAnda hari ini sudah membeli sebanyak {}\n"\
-                    "Anda hari ini sudah menghabiskan uang sejumlah {}".format(total, harga)
+                        "Anda hari ini sudah menghabiskan uang sejumlah {}".format(i[0], i[1])
             message.body(dayspent)
             responded = True
+        db.close()
 
     if "deposit uang" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk deposito uang.\n\n"\
