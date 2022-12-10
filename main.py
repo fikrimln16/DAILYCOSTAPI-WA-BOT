@@ -79,6 +79,18 @@ def sms_reply():
         message.body(reminder_string)
         responded = True
 
+    if input_type == "pengeluaran hari ini":
+            db = get_db()
+            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
+            for i in row():
+                totalbarang = i[0]
+                hargabarang = i[1]
+                reply = "Barang yang dibeli pada tanggal {} : \n\n"\
+                    "totalbarang : {} \n"\
+                        "harga barang : {} \n".format(str(input_string), totalbarang, hargabarang)
+                message.body(reply)
+                responded = True
+
     if "help" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk membeli barang.\n\n"\
             "1. cek uang : tinggal ketik 'cek uang'.\n"\
@@ -201,18 +213,6 @@ def sms_reply():
             db.execute("INSERT INTO pengeluaran VALUES(null, '{}', '{}', {}, '{}', 1 )".format(input_barang, x, int(input_harga), input_string))
             db.commit()
 
-
-        if input_type == "pengeluaran hari ini":
-            db = get_db()
-            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
-            for i in row():
-                totalbarang = i[0]
-                hargabarang = i[1]
-                reply = "Barang yang dibeli pada tanggal {} : \n\n"\
-                    "totalbarang : {} \n"\
-                        "harga barang : {} \n".format(str(input_string), totalbarang, hargabarang)
-                message.body(reply)
-                responded = True
 
         if not responded:
             message.body("Incorect reequst format")
