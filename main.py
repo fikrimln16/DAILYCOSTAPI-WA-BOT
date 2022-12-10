@@ -57,14 +57,14 @@ def sms_reply():
             tanggal = datenow.strftime('%Y-%m-%d')
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
-            pesan = "Berikut adalah barang-barang yang anda beli pada tanggal {}".format(tanggal)
+            pesan = "Berikut adalah barang-barang yang anda beli pada tanggal {} \n\n".format(tanggal)
             message.body(pesan)
             for i in row:
                 reply = "\n\n"\
                             "nama barang : {} \n"\
                                 "harga barang : {} \n"\
                                     "tanggal beli : {} \n"\
-                                        "pembayaran : {}".format(tanggal, i[0], i[1], i[2], i[3])
+                                        "pembayaran : {}\n\n".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
