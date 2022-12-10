@@ -56,13 +56,13 @@ def sms_reply():
             datenow = datetime.now(timezone('Asia/Jakarta'))
             tanggal = datenow.strftime('%Y-%m-%d')
             db = get_db()
-            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
+            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
             for i in row:
-                totalbarang = i[0]
-                hargabarang = i[1]
                 reply = "Barang yang dibeli pada tanggal {} : \n\n"\
-                    "totalbarang : {} \n"\
-                        "harga barang : {} \n".format(tanggal, totalbarang, hargabarang)
+                            "nama barang : {} \n"\
+                                "harga barang : {} \n"\
+                                    "tanggal beli : {} \n"\
+                                        "pembayaran : {}".format(tanggal, i[0], i[1], i[2], i[3])
                 message.body(reply)
                 responded = True
 
