@@ -202,19 +202,15 @@ def sms_reply():
             db.commit()
 
 
-        if input_type == "PENGELUARAN":
+        if input_type == "pengeluaran hari ini":
             db = get_db()
-            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(str(input_string), str(input_string))).fetchall()
+            row = db.execute("SELECT COUNT(nama) as 'totalbarang', SUM(jumlah) as 'hargabarang' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
             for i in row():
-                namabarang = i[0]
-                hargabarang = str(i[1])
-                tanggalbeli = i[2]
-                pembayaranbeli = i[3]
+                totalbarang = i[0]
+                hargabarang = i[1]
                 reply = "Barang yang dibeli pada tanggal {} : \n\n"\
-                    "nama barang : {} \n"\
-                        "harga barang : {} \n"\
-                            "tanggal : {} \n"\
-                                "pembayaran : {}".format(str(input_string), namabarang, hargabarang, tanggalbeli, pembayaranbeli)
+                    "totalbarang : {} \n"\
+                        "harga barang : {} \n".format(str(input_string), totalbarang, hargabarang)
                 message.body(reply)
                 responded = True
 
