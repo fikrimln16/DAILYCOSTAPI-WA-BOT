@@ -204,17 +204,17 @@ def sms_reply():
 
         if input_type == "PENGELUARAN":
             db = get_db()
-            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
+            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(str(input_string), str(input_string))).fetchall()
             for i in row():
                 namabarang = i[0]
-                hargabarang = i[1]
+                hargabarang = str(i[1])
                 tanggalbeli = i[2]
                 pembayaranbeli = i[3]
                 reply = "Barang yang dibeli pada tanggal {} : \n\n"\
                     "nama barang : {} \n"\
                         "harga barang : {} \n"\
                             "tanggal : {} \n"\
-                                "pembayaran : {}".format(input_string, namabarang, hargabarang, tanggalbeli, pembayaranbeli)
+                                "pembayaran : {}".format(str(input_string), namabarang, hargabarang, tanggalbeli, pembayaranbeli)
                 message.body(reply)
                 responded = True
 
