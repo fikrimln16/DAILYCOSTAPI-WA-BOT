@@ -81,7 +81,8 @@ def sms_reply():
         row = db.execute("SELECT COUNT(nama) as 'nama', SUM(jumlah) as 'jumlah' FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
         for i in row:
             dayspent = "\n\nAnda hari ini sudah membeli sebanyak {}\n"\
-                        "Anda hari ini sudah menghabiskan uang sejumlah {}".format(i[0], i[1])
+                        "Anda hari ini sudah menghabiskan uang sejumlah {}\n\n"\
+                            "ketik 'list pengeluaran hari ini' untuk melihat list2 hari ini".format(i[0], i[1])
             message.body(dayspent)
             responded = True
         db.close()
@@ -239,13 +240,28 @@ def sms_reply():
         if input_type == "PENGELUARAN":
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string, input_string)).fetchall()
+            total = 1
+            harga = 0
             for i in row:
-                reply = "\n nama barang : {} \n"\
-                                "harga barang : {} \n"\
-                                    "tanggal beli : {} \n"\
-                                        "pembayaran : {}\n\n".format(i[0], i[1], i[2], i[3])
+                space = "\n"
+                reply = "\n\n--------------------\n"\
+                        "nama barang : {} \n"\
+                        "harga barang : {} \n"\
+                        "tanggal beli : {} \n"\
+                        "pembayaran : {}\n"\
+                            "-------------------\n\n".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
+                message.body(space)
+                harga = harga + int(i[1])
+                total = total + 1
                 responded = True
+            db.close()
+
+            dayspent = "\n\nAnda sudah membeli sebanyak {}\n"\
+                        "Anda sudah menghabiskan uang sejumlah {}\n\n"\
+                            "ketik 'list pengeluaran hari ini' untuk melihat list2 hari ini".format(total, harga)
+            message.body(dayspent)
+            responded = True
 
 
         if not responded:
