@@ -201,15 +201,19 @@ def sms_reply():
             db.execute("INSERT INTO pengeluaran VALUES(null, '{}', '{}', {}, '{}', 1 )".format(input_barang, x, int(input_harga), input_string))
             db.commit()
 
-            
-            
-            
 
-
+        if input_type == "CEK":
+            db = get_db()
+            row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(input_string)).fetchall()
+            for i in row():
+                reply = "Barang yang dibeli pada tanggal {} : \n\n"\
+                    "{}".format(input_string, i)
+                message.body(reply)
+                responded = True
+            db.close()
 
         if not responded:
             message.body("Incorect reequst format")
-
 
     return str(response)
 
