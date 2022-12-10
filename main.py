@@ -58,6 +58,7 @@ def sms_reply():
             db = get_db()
             row = db.execute("SELECT nama, jumlah, tanggal, pembayaran FROM pengeluaran WHERE tanggal BETWEEN '{} 00:00:00' AND '{} 23:59:59'".format(tanggal, tanggal)).fetchall()
             total = 1
+            harga = 0
             for i in row:
                 space = "\n"
                 reply = "\n\n--------------------\n"\
@@ -65,11 +66,17 @@ def sms_reply():
                         "harga barang : {} \n"\
                         "tanggal beli : {} \n"\
                         "pembayaran : {}\n"\
-                            "-------------------\n\n".format(total, i[0], i[1], i[2], i[3])
+                            "-------------------\n\n".format(i[0], i[1], i[2], i[3])
                 message.body(reply)
                 message.body(space)
-                responded = True
+                harga = harga + int(i[1])
                 total = total + 1
+                responded = True
+
+            dayspent = "Anda hari ini sudah membeli sebanyak {}\n"\
+                    "Anda hari ini sudah menghabiskan uang sejumlah {}".format(total, harga)
+            message.body(dayspent)
+            responded = True
 
     if "deposit uang" in incoming_msg:
         reminder_string = "Berikut adalah tata cara untuk deposito uang.\n\n"\
