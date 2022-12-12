@@ -47,7 +47,8 @@ def sms_reply():
             reminder_string = "\nUang anda tersisa : \n\n"\
                 "GOPAY = {}.\n"\
                     "CASH = {}.\n"\
-                        "REKENING = {}.".format(uanggopay, uangcash, uangrekening)
+                        "REKENING = {}.\n\n"\
+                            "TOTAL UANG : {}".format(uanggopay, uangcash, uangrekening, uanggopay+uangcash+uangrekening)
             message.body(reminder_string)
             responded = True
             db.close()
